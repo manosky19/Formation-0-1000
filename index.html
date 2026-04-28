@@ -488,6 +488,30 @@
             box-shadow: none;
         }
 
+        .payment-method-btn {
+            padding: 12px;
+            border: 2px solid #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .payment-method-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .payment-method-btn.selected {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 100%);
+            border-color: #f4e4c1;
+        }
+
+        .payment-method-btn.selected div {
+            color: #0a0a0a !important;
+        }
+
         .form-info {
             text-align: center;
             font-size: 0.75rem;
@@ -625,7 +649,7 @@
         <div class="hero">
             <div class="hero-badge">✅ 128 VENTES | 128 CLIENTS SATISFAITS</div>
             <h1>0€ → 1000€<br>EN 30 JOURS</h1>
-            <p>Formation complète + 5 fournisseurs privés exclusifs</p>
+            <p>Formation complète + 5 fournisseurs privés + accompagnement personnel</p>
         </div>
 
         <!-- PRICING -->
@@ -646,33 +670,6 @@
             </div>
         </div>
 
-        <!-- TESTIMONIALS -->
-        <div class="testimonials">
-            <h3>CE QUE DISENT NOS CLIENTS</h3>
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="testimonial-name">Mohammed A.</div>
-                    <div class="testimonial-result">✅ 800€ EN 20J</div>
-                    <div class="testimonial-text">"Les fournisseurs valent 10x le prix"</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-name">Sophie L.</div>
-                    <div class="testimonial-result">✅ 3000€ EN 30J</div>
-                    <div class="testimonial-text">"Meilleur investissement"</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-name">Ahmed Z.</div>
-                    <div class="testimonial-result">✅ 5000€ +20%</div>
-                    <div class="testimonial-text">"Marge +20% garanti"</div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-name">Julie M.</div>
-                    <div class="testimonial-result">✅ 1500€/MOIS</div>
-                    <div class="testimonial-text">"Sans expérience avant"</div>
-                </div>
-            </div>
-        </div>
-
         <!-- WHAT YOU GET -->
         <div class="what-you-get">
             <h3>TU REÇOIS</h3>
@@ -680,10 +677,18 @@
                 <div class="feature-item">✅ 10 modules structurés</div>
                 <div class="feature-item">✅ 5 fournisseurs secrets</div>
                 <div class="feature-item">✅ Checklist jour-par-jour</div>
-                <div class="feature-item">✅ Templates Excel</div>
+                <div class="feature-item">✅ Accompagnement personnel</div>
                 <div class="feature-item">✅ 7 tactiques secrètes</div>
                 <div class="feature-item">✅ Accès à vie</div>
             </div>
+        </div>
+
+        <!-- ACCOMPAGNEMENT PERSONNEL SECTION -->
+        <div class="testimonials" style="background: rgba(212, 175, 55, 0.08); border-top: 2px solid #d4af37; border-bottom: 2px solid #d4af37;">
+            <h3 style="color: #d4af37; margin-bottom: 18px;">📱 ACCOMPAGNEMENT PERSONNEL</h3>
+            <p style="color: #b0b0b0; font-size: 0.95rem; text-align: center; line-height: 1.6;">
+                Une fois cette formation achetée et lue, contacte-moi en DM sur TikTok <strong style="color: #d4af37;">@man.osky</strong> avec le message "<strong style="color: #d4af37;">Accès Instagram</strong>". Tu pourras me poser toutes tes questions et nous affinerons ensemble ta stratégie selon ta situation.
+            </p>
         </div>
 
         <!-- SUPPLIERS SECTION -->
@@ -755,6 +760,28 @@
                     </div>
                 </div>
 
+                <!-- CHOIX MOYEN DE PAIEMENT -->
+                <label style="color: #d4af37; font-weight: 700; margin-bottom: 12px; display: block; text-align: center; letter-spacing: 0.5px;">💳 CHOISIR VOTRE MOYEN DE PAIEMENT</label>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                    <button type="button" class="payment-method-btn selected" onclick="selectPayment('stripe', this)">
+                        <div style="font-weight: 700; font-size: 0.9rem; color: #d4af37;">Carte Bancaire</div>
+                        <div style="font-size: 0.75rem; color: #b0b0b0;">🔒 Sécurisé</div>
+                    </button>
+                    <button type="button" class="payment-method-btn" onclick="selectPayment('paypal', this)">
+                        <div style="font-weight: 700; font-size: 0.9rem; color: #d4af37;">PayPal</div>
+                        <div style="font-size: 0.75rem; color: #b0b0b0;">🔒 Sécurisé</div>
+                    </button>
+                    <button type="button" class="payment-method-btn" onclick="selectPayment('applepay', this)">
+                        <div style="font-weight: 700; font-size: 0.9rem; color: #d4af37;">Apple Pay</div>
+                        <div style="font-size: 0.75rem; color: #b0b0b0;">⚡ Rapide • 🔒 Sécurisé</div>
+                    </button>
+                    <button type="button" class="payment-method-btn" onclick="selectPayment('googlepay', this)">
+                        <div style="font-weight: 700; font-size: 0.9rem; color: #d4af37;">Google Pay</div>
+                        <div style="font-size: 0.75rem; color: #b0b0b0;">⚡ Rapide • 🔒 Sécurisé</div>
+                    </button>
+                </div>
+
                 <!-- BOUTON PAIEMENT -->
                 <button type="submit" class="cta-button" id="submitBtn">
                     ⚡ PAYER 47€ → ACCÈS IMMÉDIAT
@@ -778,10 +805,23 @@
             <p>Tu recevras un email dans <strong>2 min max</strong> avec:</p>
             <p style="margin-top: 15px; color: #d4af37;">✅ Formation complète</p>
             <p style="color: #d4af37;">✅ 5 fournisseurs secrets RÉVÉLÉS</p>
-            <p style="color: #d4af37;">✅ Templates Excel premium</p>
+            <p style="color: #d4af37;">✅ Accompagnement personnel</p>
             <p style="color: #d4af37;">✅ Groupe VIP exclusif</p>
             <div class="success-highlight">
                 📧 VÉRIFIE TON EMAIL (Y COMPRIS SPAM)
+            </div>
+        </div>
+
+        <!-- TESTIMONIALS REMOVED -->
+
+        <!-- CONTACT SECTION -->
+        <div class="what-you-get" style="text-align: center;">
+            <h3>📱 ACCOMPAGNEMENT PERSONNEL</h3>
+            <p style="color: #b0b0b0; margin-bottom: 20px; font-size: 0.95rem;">Une fois la formation reçue, contacte-nous en DM TikTok pour accéder à l'Instagram d'accompagnement personnel.</p>
+            <div style="background: rgba(212, 175, 55, 0.1); border: 2px solid #d4af37; border-radius: 8px; padding: 20px; margin: 0 auto; max-width: 300px;">
+                <div style="font-weight: 700; color: #d4af37; margin-bottom: 10px; font-size: 1rem;">📲 Envoie un DM sur TikTok</div>
+                <div style="color: #f4e4c1; font-weight: 700; font-size: 1.1rem;">@man.osky</div>
+                <div style="color: #b0b0b0; font-size: 0.9rem; margin-top: 10px;">Mentionne: "Accès Instagram"</div>
             </div>
         </div>
 
@@ -799,14 +839,12 @@
             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
             locale: 'auto',
             token: async function(token) {
-                // Token créé, on récupère les infos
                 const email = document.getElementById('email').value.trim();
                 const name = document.getElementById('name').value.trim();
                 const phone = document.getElementById('phone').value.trim();
 
                 try {
-                    // Envoyer à Formspree
-                    const response = await fetch('https://formspree.io/f/mlgaqjgp', {
+                    await fetch('https://formspree.io/f/mlgaqjgp', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -821,7 +859,6 @@
                         })
                     });
 
-                    // Afficher succès
                     document.getElementById('mainSection').style.display = 'none';
                     document.getElementById('successSection').classList.add('show');
                     window.scrollTo(0, 0);
@@ -832,6 +869,16 @@
                 }
             }
         });
+
+        let selectedPayment = 'stripe';
+
+        function selectPayment(method, button) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-method-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+        }
 
         const form = document.getElementById('purchaseForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -863,27 +910,39 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Traitement en cours...';
 
-            // Ouvrir le modal Stripe Checkout
-            handler.openModal({
-                name: 'Formation VIP',
-                description: '0€ → 1000€ en 30 jours',
-                amount: 4700, // 47€ en centimes
-                email: email,
-                panelLabel: 'Payer',
-                allowRememberMe: false
-            });
+            if (selectedPayment === 'stripe') {
+                handler.openModal({
+                    name: 'Formation VIP',
+                    description: '0€ → 1000€ en 30 jours',
+                    amount: 4700,
+                    email: email,
+                    panelLabel: 'Payer',
+                    allowRememberMe: false
+                });
+            } else if (selectedPayment === 'paypal') {
+                alert('PayPal: Redirection vers PayPal...\n\nNote: Pour tester, utilise une vraie carte ou configure PayPal dans tes paramètres Stripe.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
+            } else if (selectedPayment === 'applepay') {
+                alert('Apple Pay: Utilise une vraie carte pour tester sur iPhone.\n\nNote: Apple Pay fonctionne uniquement sur Safari avec un compte Apple.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
+            } else if (selectedPayment === 'googlepay') {
+                alert('Google Pay: Utilise une vraie carte pour tester sur Android.\n\nNote: Google Pay fonctionne uniquement sur Chrome avec un compte Google.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
+            }
 
-            // Re-enable button après fermeture
             setTimeout(() => {
                 submitBtn.disabled = false;
                 submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
             }, 1000);
         });
 
-        // Fermer le modal si on appuie sur Échap
         window.addEventListener('popstate', function() {
             handler.close();
         });
+
     </script>
 
 </body>
