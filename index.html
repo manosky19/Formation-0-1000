@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formation 0€ → 1000€ en 30 Jours | Accès VIP</title>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
     <style>
         * {
             margin: 0;
@@ -190,61 +189,6 @@
             font-weight: 700;
             color: #d4af37;
             letter-spacing: 2px;
-        }
-
-        /* TESTIMONIALS */
-        .testimonials {
-            padding: 30px 20px;
-            background: #1a1a1a;
-            border-bottom: 1px solid #d4af37;
-        }
-
-        .testimonials h3 {
-            font-size: 0.95rem;
-            color: #d4af37;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .testimonial {
-            background: rgba(212, 175, 55, 0.08);
-            padding: 14px;
-            border-radius: 6px;
-            border-left: 3px solid #d4af37;
-            transition: all 0.2s;
-        }
-
-        .testimonial:hover {
-            background: rgba(212, 175, 55, 0.12);
-            transform: translateX(4px);
-        }
-
-        .testimonial-name {
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #d4af37;
-            margin-bottom: 5px;
-        }
-
-        .testimonial-result {
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: #f4e4c1;
-            margin-bottom: 6px;
-        }
-
-        .testimonial-text {
-            font-size: 0.75rem;
-            color: #b0b0b0;
-            line-height: 1.3;
         }
 
         /* WHAT YOU GET */
@@ -615,10 +559,6 @@
                 font-size: 2.8rem;
             }
 
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
             .suppliers-grid {
                 grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
             }
@@ -684,7 +624,7 @@
         </div>
 
         <!-- ACCOMPAGNEMENT PERSONNEL SECTION -->
-        <div class="testimonials" style="background: rgba(212, 175, 55, 0.08); border-top: 2px solid #d4af37; border-bottom: 2px solid #d4af37;">
+        <div class="what-you-get" style="text-align: center;">
             <h3 style="color: #d4af37; margin-bottom: 18px;">📱 ACCOMPAGNEMENT PERSONNEL</h3>
             <p style="color: #b0b0b0; font-size: 0.95rem; text-align: center; line-height: 1.6;">
                 Une fois cette formation achetée et lue, contacte-moi en DM sur TikTok <strong style="color: #d4af37;">@man.osky</strong> avec le message "<strong style="color: #d4af37;">Accès Instagram</strong>". Tu pourras me poser toutes tes questions et nous affinerons ensemble ta stratégie selon ta situation.
@@ -812,8 +752,6 @@
             </div>
         </div>
 
-        <!-- TESTIMONIALS REMOVED -->
-
         <!-- CONTACT SECTION -->
         <div class="what-you-get" style="text-align: center;">
             <h3>📱 ACCOMPAGNEMENT PERSONNEL</h3>
@@ -833,43 +771,6 @@
     </div>
 
     <script>
-        // ====== CONFIGURATION STRIPE CHECKOUT ======
-        const handler = StripeCheckout.configure({
-            key: 'pk_live_51TRI8nK0oT66S8mq7FNSNfToeWk1fe37CV56t38ugVy6UhFoQzvzQ0EQx2tRHnDdCDk7wRUUb75IxK0mFHqpao6q00KCecDXmF',
-            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-            locale: 'auto',
-            token: async function(token) {
-                const email = document.getElementById('email').value.trim();
-                const name = document.getElementById('name').value.trim();
-                const phone = document.getElementById('phone').value.trim();
-
-                try {
-                    await fetch('https://formspree.io/f/mlgaqjgp', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            email: email,
-                            name: name,
-                            phone: phone,
-                            amount: '47€',
-                            product: 'Formation VIP 0€→1000€',
-                            paymentMethod: 'Stripe',
-                            stripeToken: token.id,
-                            timestamp: new Date().toISOString()
-                        })
-                    });
-
-                    document.getElementById('mainSection').style.display = 'none';
-                    document.getElementById('successSection').classList.add('show');
-                    window.scrollTo(0, 0);
-
-                } catch (error) {
-                    console.error('Erreur:', error);
-                    alert('Une erreur est survenue. Réessayez.');
-                }
-            }
-        });
-
         let selectedPayment = 'stripe';
 
         function selectPayment(method, button) {
@@ -888,6 +789,7 @@
 
             const email = document.getElementById('email').value.trim();
             const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
 
             let isValid = true;
 
@@ -910,39 +812,41 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Traitement en cours...';
 
-            if (selectedPayment === 'stripe') {
-                handler.openModal({
-                    name: 'Formation VIP',
-                    description: '0€ → 1000€ en 30 jours',
-                    amount: 4700,
-                    email: email,
-                    panelLabel: 'Payer',
-                    allowRememberMe: false
+            try {
+                // Envoyer à Formspree
+                const response = await fetch('https://formspree.io/f/mlgaqjgp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        name: name,
+                        phone: phone,
+                        amount: '47€',
+                        product: 'Formation VIP 0€→1000€',
+                        paymentMethod: selectedPayment,
+                        timestamp: new Date().toISOString()
+                    })
                 });
-            } else if (selectedPayment === 'paypal') {
-                alert('PayPal: Redirection vers PayPal...\n\nNote: Pour tester, utilise une vraie carte ou configure PayPal dans tes paramètres Stripe.');
-                submitBtn.disabled = false;
-                submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
-            } else if (selectedPayment === 'applepay') {
-                alert('Apple Pay: Utilise une vraie carte pour tester sur iPhone.\n\nNote: Apple Pay fonctionne uniquement sur Safari avec un compte Apple.');
-                submitBtn.disabled = false;
-                submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
-            } else if (selectedPayment === 'googlepay') {
-                alert('Google Pay: Utilise une vraie carte pour tester sur Android.\n\nNote: Google Pay fonctionne uniquement sur Chrome avec un compte Google.');
+
+                if (response.ok) {
+                    // Rediriger vers Stripe Checkout Session
+                    if (selectedPayment === 'stripe') {
+                        const checkoutUrl = `https://checkout.stripe.com/pay/cs_live_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6`;
+                        window.location.href = checkoutUrl;
+                    } else {
+                        // Afficher succès pour les autres méthodes
+                        document.getElementById('mainSection').style.display = 'none';
+                        document.getElementById('successSection').classList.add('show');
+                        window.scrollTo(0, 0);
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue. Réessayez.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
             }
-
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = '⚡ PAYER 47€ → ACCÈS IMMÉDIAT';
-            }, 1000);
         });
-
-        window.addEventListener('popstate', function() {
-            handler.close();
-        });
-
     </script>
 
 </body>
